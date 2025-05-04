@@ -51,6 +51,7 @@ renderBalance()
 
 // funktion som skapar HTML-listan för expenses
 function renderExpenses(){
+    if (!expenseList) return; // Avbryt om elementet inte finns
     //Nollställer listan i HTML-koden
 expenseList.innerHTML =""
     //loopar igenom expenses-arrayen och skapar li-element utifrån objekten i arrayen
@@ -58,7 +59,7 @@ expenseList.innerHTML =""
     // li-elementen blir children till ul-elementet "expenseList"
     for (let expense of expenses) {
         const li = document.createElement("li")
-        li.textContent = `${expense.description} - ${expense.amount} kr`  //varje expense är ett objekt från expenses-arrayen som loopen kört igenom
+        li.textContent = `${expense.description} - ${expense.amount} kr (Utgift)`  //varje expense är ett objekt från expenses-arrayen som loopen kört igenom
         expenseList.appendChild(li)
     }  
 }
@@ -66,6 +67,7 @@ expenseList.innerHTML =""
 
 // funktion som skapar HTML-listan för income
 function renderIncome(){
+    if (!incomeList) return; // Avbryt om elementet inte finns
     //Nollställer listan i HTML-koden
 incomeList.innerHTML =""
     //loopar igenom incomes-arrayen och skapar li-element utifrån objekten i arrayen
@@ -73,7 +75,7 @@ incomeList.innerHTML =""
     // li-elementen blir children till ul-elementet "incomeList"
     for (let income of incomes) {
         const li = document.createElement("li")
-        li.textContent = `${income.description} - ${income.amount} kr`  //varje income är ett objekt från incomes-arrayen som loopen kört igenom
+        li.textContent = `${income.description} - ${income.amount} kr (Inkomst)`  //varje income är ett objekt från incomes-arrayen som loopen kört igenom
         incomeList.appendChild(li)
     }  
 }
@@ -82,26 +84,28 @@ incomeList.innerHTML =""
 
 //funktionen som lägger till och visar transactions
 function renderTransactions(){
+    if (!transactionList) return; // Avbryt om elementet inte finns
         //Nollställer listan i HTML-koden
-    transactionList.innerHTML =""
+    transactionList.innerHTML=""
         //loopar igenom incomes- och expenses-arrayen och skapar li-element utifrån objekten i arrayen
         // i li-elementet skrivs en sträng innehållande description och amount
         // li-elementen blir children till ul-elementet "transactionList"
         for (let income of incomes) {
             const li = document.createElement("li")
-            li.textContent = `${income.description} - ${income.amount} kr`  //varje income är ett objekt från incomes-arrayen som loopen kört igenom
+            li.textContent = `${income.description} - ${income.amount} kr (Inkomst)`  //varje income är ett objekt från incomes-arrayen som loopen kört igenom
             transactionList.appendChild(li)
         }  
         for (let expense of expenses) {
             const li = document.createElement("li")
-            li.textContent = `${expense.description} - ${expense.amount} kr`  //varje expense är ett objekt från expenses-arrayen som loopen kört igenom
+            li.textContent = `${expense.description} - ${expense.amount} kr (Utgift)`  //varje expense är ett objekt från expenses-arrayen som loopen kört igenom
             transactionList.appendChild(li)
         }  
     }
     
 
  //funktionen som räknar ut och visar saldot
-function renderBalance(){
+function renderBalance(){ 
+    if (!balance) return; // Avbryt om elementet inte finns
     let totalIncome = 0
     for (let income of incomes){
         totalIncome += income.amount
@@ -110,7 +114,7 @@ function renderBalance(){
     for (let expense of expenses){
         totalExpenses += expense.amount
     }
-    balance.innerHTML = `${totalIncome - totalExpenses}`
+    balance.innerHTML= `${totalIncome - totalExpenses}`
 
 }
 
